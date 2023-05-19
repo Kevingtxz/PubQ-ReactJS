@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.text {
+  font-size: 30em;
+  margin-bottom: 1vw;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  position: relative;
+}
+
+.topic-input {
+  font-size: 1.8rem;
+  width: 100%;
+  padding: 1.2rem 3rem;
+  border-radius: 3rem;
+  font-weight: 400;
+  border: 0px;
+  color: #333;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  flex-grow: 1;
+  margin-right: 1rem;
+  z-index: -1;
+}
+
+.topic-input::placeholder {
+  color: #999;
+}
+
+.topic-input:hover {
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.2);
+}
+
+.search-icon {
+  width: 2rem !important;
+  height: 2.2rem;
+  background: url(http://www.devmedia.com.br/imagens/2013/buscar_grey.png)
+    no-repeat;
+  cursor: pointer !important;
+  border: none;
+  padding: 0;
+  position: absolute;
+  right: 5%;
+}
+
+.autocomplete-itens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  color: #333;
+  height: 10vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.autocomplete-itens::-webkit-scrollbar {
+  display: none;
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  padding: 1rem;
+  width: 40%;
+  height: 5vh;
+  border-radius: 0.2rem;
+}
+
+.autocomplete-item:hover {
+  cursor: pointer;
+  background-color: #eee;
+}

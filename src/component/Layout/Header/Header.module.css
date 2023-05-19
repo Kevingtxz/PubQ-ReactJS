@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  height: 20vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+}
+
+.logo {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #555;
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: rotate(360deg);
+  transition-duration: 500ms;
+}
+
+.link-item {
+  color: #555;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 1.2rem;
+  transition: all 0.3s;
+}
+
+.link-item:hover,
+.link-item:active {
+  transform: scale(1.2);
+}
