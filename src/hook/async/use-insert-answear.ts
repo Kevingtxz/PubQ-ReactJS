@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
 import QuestionAnswearForm from "../../model/dto/form/QuestionAnswear";
-import { API_URL } from "../../util/constant-util";
+import envConfig from "../../config/envConfig";
 
 export type useInsertAnswearReturn = [
   insertAnswear: (form: QuestionAnswearForm) => void
@@ -9,7 +9,7 @@ export type useInsertAnswearReturn = [
 
 export default function useInsertAnswear(): useInsertAnswearReturn {
   const insertAnswear = useCallback((form: QuestionAnswearForm) => {
-    fetch(API_URL + UrlEnum.QUESTIONS_ANSWEAR_URL, {
+    fetch(envConfig.API_URL + UrlEnum.QUESTIONS_ANSWEAR_URL, {
       method: MethodsEnum.POST,
       credentials: "include",
       headers: { "Content-Type": "application/json" },

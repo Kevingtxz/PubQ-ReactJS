@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { API_URL } from "../../util/constant-util";
+import envConfig from "../../config/envConfig";
 
 export enum MethodsEnum {
   GET = "GET",
@@ -40,14 +40,18 @@ export default function useHttp(): useHttpReturn {
     async ({ url, method, body, dataHandler }: sendRequestProps) => {
       let headers: HeadersInit = {};
 
-      if (method === "POST" || method === "PUT") {
+      if (
+        method === MethodsEnum.POST ||
+        method === MethodsEnum.PUT ||
+        method === MethodsEnum.PATCH
+      ) {
         headers = { "Content-Type": "application/json" };
       }
 
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch((url = API_URL + url), {
+        const response = await fetch((url = envConfig.API_URL + url), {
           method: method ? method : MethodsEnum.GET,
           headers: headers,
           credentials: "include",

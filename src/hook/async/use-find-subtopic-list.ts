@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
 import SubtopicView from "../../model/dto/view/SubtopicView";
 import SubtopicService from "../../service/SubtopicService";
-import { API_URL } from "../../util/constant-util";
+import envConfig from "../../config/envConfig";
 
 export type findSubtopicListProps = {
   topicId: number;
@@ -22,7 +22,7 @@ export default function useFindSubtopicList(): useSelectTopicReturn {
 
         try {
           const response = await fetch(
-            API_URL + UrlEnum.SUBTOPICS_BY_TOPIC + topicId,
+            envConfig.API_URL + UrlEnum.SUBTOPICS_BY_TOPIC + topicId,
             {
               method: MethodsEnum.GET,
               credentials: "include",

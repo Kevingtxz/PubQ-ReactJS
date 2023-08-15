@@ -1,10 +1,8 @@
-import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
 import UserModel from "../../model/dto/view/UserView";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authAction } from "../../store/reducer/auth-reducer";
-import { API_URL } from "../../util/constant-util";
+import envConfig from "../../config/envConfig";
 
 export type useUseLoginProps = {
   dataHandler: (data: any) => void;
@@ -13,12 +11,11 @@ export type useUseLoginReturn = [useLogin: () => void];
 
 export default function useLogin(): useUseLoginReturn {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const useLogin = useCallback(async () => {
+  const login = async () => {
     let user: UserModel | undefined;
 
     try {
-      const response = await fetch(API_URL + UrlEnum.USER_ME, {
+      const response = await fetch(envConfig.API_URL + UrlEnum.USER_ME, {
         method: MethodsEnum.GET,
         credentials: "include",
       });
@@ -27,9 +24,10 @@ export default function useLogin(): useUseLoginReturn {
 
     if (user) {
       dispatch(authAction.login(user));
-      navigate("/");
+    } else {
+      window.open(envConfig.API_URL + "api/v1/auth/google/callback", "_self");
     }
-  }, [dispatch, navigate]);
+  };
 
-  return [useLogin] as useUseLoginReturn;
+  return [login] as useUseLoginReturn;
 }

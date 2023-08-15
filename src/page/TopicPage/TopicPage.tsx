@@ -4,8 +4,7 @@ import SubtopicList from "../../component/SubtopicList/SubtopicList";
 import Header from "../../component/Layout/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
 import useHttp, { UrlEnum } from "../../hook/async/use-http";
 import TopicView from "../../model/dto/view/TopicView";
 import TopicService from "../../service/TopicService";
@@ -15,14 +14,9 @@ export default function TopicPage(): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoading, error, sendRequest] = useHttp();
-  const isLogged = useSelector(
-    (state: RootState) => state.authReducer.isLogged
-  );
 
   useEffect(() => {
-    if (!isLogged) {
-      navigate("/login");
-    } else if (!TopicService.isLoadRecent()) {
+    if (!TopicService.isLoadRecent()) {
       sendRequest({
         url: UrlEnum.TOPICS,
         dataHandler: (data: TopicView[]) => {
@@ -34,7 +28,7 @@ export default function TopicPage(): JSX.Element {
     } else {
       dispatch(topicAction.loadTopics(TopicService.fromLocalStorage()));
     }
-  }, [navigate, isLogged, sendRequest, dispatch]);
+  }, [navigate, sendRequest, dispatch]);
 
   return (
     <div className={style["container"]}>
