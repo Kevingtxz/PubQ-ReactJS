@@ -1,8 +1,8 @@
-import { API_URL } from "../../util/constant-util";
 import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
 import SubtopicView from "../../model/dto/view/SubtopicView";
 import SubtopicService from "../../service/SubtopicService";
+import { API_URL } from "../../util/constant-util";
 
 export type findSubtopicListProps = {
   topicId: number;
@@ -15,28 +15,27 @@ export type useSelectTopicReturn = [
 export default function useFindSubtopicList(): useSelectTopicReturn {
   const findSubtopicList = useCallback(
     async ({ topicId, dataHandler }: findSubtopicListProps) => {
-      let subtopicList =
-        SubtopicService.findFromLocalStorageBySubtopicId(topicId);
+      let list = SubtopicService.findFromLocalStorageBySubtopicId(topicId);
 
-      if (subtopicList.length === 0) {
-        let subtopicViewList: SubtopicView[] | undefined;
+      if (list.length === 0) {
+        let viewList: SubtopicView[] | undefined;
 
         try {
           const response = await fetch(
             API_URL + UrlEnum.SUBTOPICS_BY_TOPIC + topicId,
             {
               method: MethodsEnum.GET,
+              credentials: "include",
             }
           );
-          subtopicViewList = await response.json();
-          subtopicList = SubtopicService.makeModelAll(subtopicViewList!);
+          viewList = await response.json();
+          list = SubtopicService.makeModelAll(viewList!);
         } catch (err) {
-          subtopicList = [];
-          console.log(err);
+          list = [];
         }
       }
 
-      dataHandler(subtopicList);
+      dataHandler(list);
     },
     []
   );

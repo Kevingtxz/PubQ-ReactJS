@@ -33,7 +33,7 @@ export default function SubtopicList(): JSX.Element {
     return <></>;
   }
 
-  const subtopicListJsx = subtopicList.slice(0, 10).map((item) => {
+  const subtopicListJsx = subtopicList.map((item) => {
     return (
       <div className={style["grid-item"]} key={item.id}>
         <Subtopic key={item.id} subtopic={item} />

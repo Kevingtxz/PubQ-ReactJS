@@ -1,12 +1,13 @@
 export default interface QuestionView {
   id: number;
-  text: string;
+  question: string;
   a: string;
   b: string;
   c: string;
   d: string;
   e: string;
-  nivel: number;
+  correct: number;
+  explanation: string;
   year: number;
   subtopicId: number;
 }

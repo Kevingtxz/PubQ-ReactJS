@@ -1,10 +1,10 @@
 export default interface QuestionModel {
   id: number;
-  text: string;
+  question: string;
   options: string[];
   year: number;
-  nivel: number;
   subtopicId: number;
-  correct?: number;
-  explanation?: string;
+  correct: number;
+  explanation: string;
+  answearRight?: boolean;
 }

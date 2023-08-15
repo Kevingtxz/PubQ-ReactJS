@@ -8,13 +8,11 @@ import { useDispatch } from "react-redux";
 import { topicAction } from "../../store/reducer/topic-reducer";
 import TopicModel from "../../model/TopicModel";
 import useFindTopic from "../../hook/async/use-find-topic";
-import { useNavigate } from "react-router-dom";
 
 export default function TopicInput(): JSX.Element {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [topicName, setTopicName] = useState("");
-  const [suggestionList, setSuggestionList] = useState([""]);
+  const [suggestionList, setTopicAutocompleteList] = useState([""]);
   const [findTopic] = useFindTopic();
   const topicList = useSelector((state: RootState) => {
     return state.topicReducer.topicList;
@@ -28,9 +26,8 @@ export default function TopicInput(): JSX.Element {
         dispatch(topicAction.selectTopic(data));
       },
     });
-    // navigate("/subtopics");
     setTopicName("");
-    setSuggestionList([]);
+    setTopicAutocompleteList([]);
   };
 
   const handler = async (event: FormEvent) => {
@@ -46,14 +43,14 @@ export default function TopicInput(): JSX.Element {
   const onChangeFunction = (event: ChangeEvent<HTMLInputElement>) => {
     setTopicName(event.target.value);
     if (event.target.value.length === 0) {
-      return setSuggestionList([]);
+      return setTopicAutocompleteList([]);
     }
     const topicListStr = topicList.map((item) => item.name);
-    const suggestionAutocompleteList = TopicService.verifyAutocomplete(
+    const topicAutocompleteList = TopicService.verifyAutocomplete(
       event.target.value,
       topicListStr
     );
-    setSuggestionList(suggestionAutocompleteList);
+    setTopicAutocompleteList(topicAutocompleteList);
   };
 
   const autocompleteFunction = (topicNameAutocompleted: string) => {
@@ -83,7 +80,7 @@ export default function TopicInput(): JSX.Element {
             <input
               className={style["topic-input"]}
               type="text"
-              placeholder="Azure AZ900:Security"
+              placeholder="AZ900: Azure Fundamentals"
               value={topicName}
               onChange={onChangeFunction}
               maxLength={100}

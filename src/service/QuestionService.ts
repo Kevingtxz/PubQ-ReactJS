@@ -14,14 +14,15 @@ export default class QuestionService {
 
   static makeModel({
     id,
-    text,
+    question,
     a,
     b,
     c,
     d,
     e,
+    correct,
+    explanation,
     year,
-    nivel,
     subtopicId,
   }: QuestionView): QuestionModel {
     const options: string[] = [];
@@ -33,28 +34,18 @@ export default class QuestionService {
 
     return {
       id,
-      text,
+      question,
       options,
+      correct,
+      explanation,
       year,
-      nivel,
       subtopicId,
     };
   }
 
   static makeModelAll(list: QuestionView[]): QuestionModel[] {
+    console.log(list);
     return list.map((item) => this.makeModel(item));
-  }
-
-  static convertNivel(nivel: number): string {
-    switch (nivel) {
-      case 1:
-        return "Introdutório";
-      case 2:
-        return "Intermediário";
-      case 3:
-        return "Avançado";
-    }
-    throw new Error("Error in the convert nivel");
   }
 
   static findFromLocalStorageBySubtopicId(subtopicId: number): QuestionModel[] {

@@ -8,8 +8,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   padding: 2rem;
   border-bottom: 1px solid #555;
+  width: 100vw;
 }
 
 .topic-selected {
@@ -20,20 +22,21 @@
 .grid {
   margin-top: 5vh;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-between;
   grid-gap: 10em;
   align-items: center;
-  width: 100%;
   border-radius: 20em;
   padding: 2rem;
-  border: 1px transparent;
+  margin: auto;
+  width: 80%;
 }
 
 .grid-item {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20vh;
+  width: 85%;
   height: 10vh;
   border-radius: 10em;
   opacity: 0.7;
@@ -44,4 +47,10 @@
   cursor: pointer;
   opacity: 1;
   color: #333;
+}
+
+@media screen and (max-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

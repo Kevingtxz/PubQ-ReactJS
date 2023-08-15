@@ -1,5 +1,5 @@
-import { API_URL } from "../../util/constant-util";
 import { useCallback, useState } from "react";
+import { API_URL } from "../../util/constant-util";
 
 export enum MethodsEnum {
   GET = "GET",
@@ -11,8 +11,12 @@ export enum MethodsEnum {
 
 export enum UrlEnum {
   TOPICS = "api/v1/topics",
+  SUGGESTION = "api/v1/suggestions",
   SUBTOPICS_BY_TOPIC = "api/v1/subtopics/topic=",
   QUESTIONS_BY_SUBTOPIC = "api/v1/questions/subtopic/",
+  QUESTIONS_ANSWEAR_URL = "api/v1/questions/answears/",
+  REPORT_QUESTIONS = "api/v1/reports/questions/",
+  USER_ME = "api/v1/users/me/",
 }
 
 export type sendRequestProps = {
@@ -46,6 +50,7 @@ export default function useHttp(): useHttpReturn {
         const response = await fetch((url = API_URL + url), {
           method: method ? method : MethodsEnum.GET,
           headers: headers,
+          credentials: "include",
           body: body ? JSON.stringify(body) : null,
         });
 

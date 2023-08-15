@@ -6,13 +6,13 @@ export interface TopicState {
   topicList: TopicModel[];
 }
 
-const initialTopicsState: TopicState = {
+const initialState: TopicState = {
   topicList: [],
 };
 
-const topicSlice = createSlice({
+const slice = createSlice({
   name: "topic",
-  initialState: initialTopicsState,
+  initialState: initialState,
   reducers: {
     loadTopics(state: TopicState, { payload }: { payload: TopicModel[] }) {
       state.topicList = payload;
@@ -25,7 +25,7 @@ const topicSlice = createSlice({
     },
   },
 });
-const topicReducer = topicSlice.reducer;
+const topicReducer = slice.reducer;
 
-export const topicAction = topicSlice.actions;
+export const topicAction = slice.actions;
 export default topicReducer;

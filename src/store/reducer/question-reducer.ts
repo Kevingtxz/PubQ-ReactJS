@@ -5,13 +5,13 @@ export interface QuestionState {
   questionList: QuestionModel[];
 }
 
-const initialQuestionsState: QuestionState = {
+const initialState: QuestionState = {
   questionList: [],
 };
 
-const questionSlice = createSlice({
+const slice = createSlice({
   name: "question",
-  initialState: initialQuestionsState,
+  initialState: initialState,
   reducers: {
     loadQuestions(
       state: QuestionState,
@@ -21,7 +21,7 @@ const questionSlice = createSlice({
     },
   },
 });
-const questionReducer = questionSlice.reducer;
+const questionReducer = slice.reducer;
 
-export const questionAction = questionSlice.actions;
+export const questionAction = slice.actions;
 export default questionReducer;

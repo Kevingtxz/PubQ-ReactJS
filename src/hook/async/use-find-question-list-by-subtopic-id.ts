@@ -1,12 +1,11 @@
-import { API_URL } from "../../util/constant-util";
 import { useCallback } from "react";
-import { MethodsEnum, UrlEnum } from "./use-http";
+import { MethodsEnum } from "./use-http";
 import QuestionView from "../../model/dto/view/QuestionView";
 import QuestionService from "../../service/QuestionService";
 import QuestionModel from "../../model/QuestionModel";
 import urlUtil from "../../util/url-util";
 
-export type findQuestionListBySubtopicIdProps = {
+export type findRandomQuestionsBySubtopicIdProps = {
   subtopicId: number;
   dataHandler: (data: any) => void;
 };
@@ -14,28 +13,31 @@ export type useFindQuestionListBySubtopicIdReturn = [
   findQuestionListBySubtopicId: ({
     subtopicId,
     dataHandler,
-  }: findQuestionListBySubtopicIdProps) => void
+  }: findRandomQuestionsBySubtopicIdProps) => void
 ];
 
-export default function useFindQuestionListBySubtopicId(): useFindQuestionListBySubtopicIdReturn {
-  const findQuestionListBySubtopicId = useCallback(
-    async ({ subtopicId, dataHandler }: findQuestionListBySubtopicIdProps) => {
+export default function useFindRandomQuestionsBySubtopicId(): useFindQuestionListBySubtopicIdReturn {
+  const findRandomQuestionsBySubtopicId = useCallback(
+    async ({
+      subtopicId,
+      dataHandler,
+    }: findRandomQuestionsBySubtopicIdProps) => {
       let list: QuestionModel[] = [];
 
       let viewList: QuestionView[] | undefined;
 
       try {
         const response = await fetch(
-          urlUtil.QUESTIONS_BY_SUBTOPIC(subtopicId, 1),
+          urlUtil.RANDOM_QUESTIONS_BY_SUBTOPIC(subtopicId),
           {
             method: MethodsEnum.GET,
+            credentials: "include",
           }
         );
         viewList = await response.json();
         list = QuestionService.makeModelAll(viewList!);
       } catch (err) {
         list = [];
-        console.log(err);
       }
 
       dataHandler(list);
@@ -44,6 +46,6 @@ export default function useFindQuestionListBySubtopicId(): useFindQuestionListBy
   );
 
   return [
-    findQuestionListBySubtopicId,
+    findRandomQuestionsBySubtopicId,
   ] as useFindQuestionListBySubtopicIdReturn;
 }

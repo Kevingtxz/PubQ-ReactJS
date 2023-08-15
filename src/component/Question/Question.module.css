@@ -1,13 +1,13 @@
 .container {
-  height: 80vh;
-  width: 80vw;
+  height: 90vh;
+  width: 75vw;
 }
 
 .flex {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  padding: 2rem;
+  gap: 1.5rem;
   width: 100%;
   height: 100%;
   margin: auto;
@@ -16,8 +16,8 @@
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: space-around;
+  gap: 2rem;
   width: 100%;
   padding: 1.2rem 1.2rem;
   box-shadow: 0 0.7px 0 #ddd;
@@ -35,13 +35,24 @@
   color: #6e7cf7;
 }
 
-.text {
-  padding: 2rem 2rem 2rem 0;
-  font-size: 1.4rem;
+.logo {
+  height: 1em;
+}
+
+.logo:hover {
+  cursor: pointer;
 }
 
 .question {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.text {
+  padding: 2rem;
+  font-size: 1.6rem;
 }
 
 .options {
@@ -49,6 +60,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin: auto;
+  width: 100%;
   box-shadow: 0 0.7px 0 #ddd;
   gap: 1rem;
   font-size: 1.2rem;
@@ -58,8 +70,8 @@
   font-size: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 3rem;
-  padding: 2rem;
+  gap: 2rem;
+  padding: 1.8rem;
   border-radius: 2rem;
 }
 
@@ -70,9 +82,8 @@
   height: 3vh;
   width: 3vh;
   font-size: 1.5rem;
-
   font-weight: 500;
-  /* border-radius: 0.3rem; */
+  border-radius: 0.3rem;
   border: 0.5px solid #3e56f0;
   color: #6e7cf7;
 }
@@ -82,9 +93,37 @@
   color: #fff;
 }
 
+.selected-option {
+  background-color: #6e7cf7;
+  color: #fff;
+}
+
 .options-item:hover {
   cursor: pointer;
   font-weight: 500;
+}
+
+.correct {
+  color: #57ff48;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.wrong {
+  color: #ff4848;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.explanation {
+  font-size: 1.8rem;
+  width: 75%;
+  line-height: 2;
+  margin: auto;
 }
 
 .send {
@@ -114,7 +153,7 @@
 .footer {
   display: flex;
   justify-content: space-around;
-  padding: 2rem 2rem 0 2rem;
+  padding: 2rem;
 }
 
 .footer-item {
@@ -124,4 +163,81 @@
 
 .footer-item:hover {
   font-weight: 700;
+}
+
+.report-container {
+  display: block;
+  padding-bottom: 1vh;
+  box-shadow: 0 0.7px 0 #ddd;
+}
+
+.report-text-wrapper {
+  display: block;
+  width: 100%;
+  height: 66vh;
+}
+
+.report-text {
+  display: block;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  border: 0;
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .flex {
+    padding: 2.4rem;
+  }
+
+  .question {
+    padding: 1.2rem;
+  }
+
+  .logo {
+    height: 2.8em;
+  }
+
+  .text {
+    height: 10vh;
+  }
+
+  .options {
+    box-shadow: none;
+    height: 55vh;
+  }
+
+  .send-button {
+    padding: 1rem 10rem;
+    margin: 1vh auto auto auto;
+  }
+
+  .footer {
+    justify-content: space-between;
+  }
+
+  .footer-item {
+    padding: 1.4rem;
+  }
+
+  .report-container {
+    box-shadow: none;
+  }
+
+  .report-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .report-text-wrapper {
+    height: 65vh;
+  }
 }

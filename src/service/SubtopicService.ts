@@ -13,7 +13,7 @@ export default class SubtopicService {
   }
 
   static makeModel({ id, name, topicId }: SubtopicView): SubtopicModel {
-    return { id, name, topicId };
+    return { id, name, topicId, totalAnswears: 0 };
   }
 
   static makeModelAll(list: SubtopicView[]): SubtopicModel[] {

@@ -6,13 +6,13 @@ export interface SubtopicState {
   subtopicList: SubtopicModel[];
 }
 
-const initialSubtopicsState: SubtopicState = {
+const initialState: SubtopicState = {
   subtopicList: [],
 };
 
-const subtopicSlice = createSlice({
+const slice = createSlice({
   name: "subtopic",
-  initialState: initialSubtopicsState,
+  initialState: initialState,
   reducers: {
     loadSubtopics(
       state: SubtopicState,
@@ -26,9 +26,21 @@ const subtopicSlice = createSlice({
     ) {
       state.subtopicSelected = payload;
     },
+    addAnswearsStatisticsToSelectedSubtopic(
+      state: SubtopicState,
+      {
+        payload,
+      }: {
+        payload: {
+          id: number;
+          totalAnswears: number;
+          correctPercentage: number;
+        };
+      }
+    ) {},
   },
 });
-const subtopicReducer = subtopicSlice.reducer;
+const subtopicReducer = slice.reducer;
 
-export const subtopicAction = subtopicSlice.actions;
+export const subtopicAction = slice.actions;
 export default subtopicReducer;

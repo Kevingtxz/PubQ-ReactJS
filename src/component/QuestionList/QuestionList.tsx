@@ -1,42 +1,46 @@
-import { useSelector } from "react-redux";
 import style from "./QuestionList.module.css";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import Question from "../Question/Question";
-import useFindQuestionListBySubtopicId from "../../hook/async/use-find-question-list-by-subtopic-id";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { questionAction } from "../../store/reducer/question-reducer";
-import QuestionModel from "../../model/QuestionModel";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function QuestionList(): JSX.Element {
-  const dispatch = useDispatch();
-  const subtopicSelected = useSelector((state: RootState) => {
-    return state.subtopicReducer.subtopicSelected;
-  });
+  const navigate = useNavigate();
   const questionList = useSelector((state: RootState) => {
     return state.questionReducer.questionList;
   });
-  const [findQuestionListBySubtopicId] = useFindQuestionListBySubtopicId();
   const [idx, setIdx] = useState(0);
 
-  useEffect(() => {
-    if (subtopicSelected) {
-      findQuestionListBySubtopicId({
-        subtopicId: subtopicSelected.id,
-        dataHandler: (data: QuestionModel[]) => {
-          dispatch(questionAction.loadQuestions(data));
-        },
-      });
+  const changeIdx = (idxNew: number) => {
+    if (idxNew < 0 || idxNew >= questionList.length) {
+      return;
     }
-  }, [dispatch, findQuestionListBySubtopicId, subtopicSelected]);
+
+    setIdx(idxNew);
+  };
 
   if (questionList.length === 0) {
-    return <></>;
+    return (
+      <div onClick={() => navigate("/")} className={style["list-empty"]}>
+        Nao existem questoes para esse topico, clique aqui para voltar
+      </div>
+    );
   }
 
   return (
     <div className={style["container"]}>
+      <div onClick={() => changeIdx(idx - 1)} className={style["previous"]}>
+        <div className="fas fa-chevron-left" />
+      </div>
       <Question question={questionList[idx]} />
+      <div className={style["next"]}>
+        <div />
+        <div
+          onClick={() => changeIdx(idx + 1)}
+          className="fas fa-chevron-right"
+        />
+      </div>
     </div>
   );
 }

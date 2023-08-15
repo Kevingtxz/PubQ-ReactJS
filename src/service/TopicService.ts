@@ -35,11 +35,11 @@ export default class TopicService {
     return list.map((item) => this.makeModel(item));
   }
 
-  static verifyAutocomplete(text: string, list: string[]): string[] {
-    const len = text.length;
+  static verifyAutocomplete(question: string, list: string[]): string[] {
+    const len = question.length;
 
     return list.filter((item) => {
-      if (item.substring(0, len) === text) {
+      if (item.substring(0, len) === question) {
         return item;
       }
     });
