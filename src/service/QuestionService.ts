@@ -44,7 +44,6 @@ export default class QuestionService {
   }
 
   static makeModelAll(list: QuestionView[]): QuestionModel[] {
-    console.log(list);
     return list.map((item) => this.makeModel(item));
   }
 
