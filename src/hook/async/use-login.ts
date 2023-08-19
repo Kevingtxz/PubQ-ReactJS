@@ -1,9 +1,9 @@
+import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
 import UserModel from "../../model/dto/view/UserView";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../store/reducer/auth-reducer";
 import envConfig from "../../config/envConfig";
-import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
 
 export type useUseLoginProps = {
@@ -13,12 +13,11 @@ export type useUseLoginReturn = [useLogin: () => void];
 
 export default function useLogin(): useUseLoginReturn {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isLogged = useSelector(
     (state: RootState) => state.authReducer.isLogged
   );
 
-  const login = async () => {
+  const login = useCallback(async () => {
     if (!isLogged) {
       let user: UserModel | undefined;
 
@@ -30,13 +29,11 @@ export default function useLogin(): useUseLoginReturn {
         user = await response.json();
       } catch (err) {}
 
-      if (user) {
+      if (user?.id) {
         dispatch(authAction.login(user));
-      } else {
-        navigate("/auth");
       }
     }
-  };
+  }, [dispatch, isLogged]);
 
   return [login] as useUseLoginReturn;
 }
