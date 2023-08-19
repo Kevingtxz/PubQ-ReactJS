@@ -24,11 +24,15 @@ export default function useFindTopic(): useFindTopicReturn {
         const form: TopicForm = {
           name: topicName,
         };
+        const headers = new Headers();
+        headers.set("Content-Type", "application/json");
+        headers.set("Accept", "application/json");
+        headers.set("Access-Control-Allow-Credentials", "true");
 
         fetch(envConfig.API_URL + UrlEnum.SUGGESTION + "/topics", {
+          headers,
           method: MethodsEnum.POST,
           credentials: "include",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         });
       }

@@ -38,22 +38,18 @@ export default function useHttp(): useHttpReturn {
 
   const sendRequest = useCallback(
     async ({ url, method, body, dataHandler }: sendRequestProps) => {
-      let headers: HeadersInit = {};
-
-      if (
-        method === MethodsEnum.POST ||
-        method === MethodsEnum.PUT ||
-        method === MethodsEnum.PATCH
-      ) {
-        headers = { "Content-Type": "application/json" };
-      }
+      const headers = new Headers();
+      headers.set("Content-Type", "application/json");
+      headers.set("Accept", "application/json");
+      headers.set("Access-Control-Allow-Credentials", "true");
 
       setIsLoading(true);
       setError(null);
+
       try {
         const response = await fetch((url = envConfig.API_URL + url), {
-          method: method ? method : MethodsEnum.GET,
           headers: headers,
+          method: method ? method : MethodsEnum.GET,
           credentials: "include",
           body: body ? JSON.stringify(body) : null,
         });

@@ -1,39 +1,36 @@
 import { useCallback } from "react";
 import { MethodsEnum, UrlEnum } from "./use-http";
-import UserModel from "../../model/dto/view/UserView";
-import { useDispatch, useSelector } from "react-redux";
-import { authAction } from "../../store/reducer/auth-reducer";
+import QuestionAnswearForm from "../../model/dto/form/QuestionAnswear";
 import envConfig from "../../config/envConfig";
-import { RootState } from "../../store/store";
+import { authAction } from "../../store/reducer/auth-reducer";
+import { useDispatch } from "react-redux";
 
-export type useUseLoginProps = {
-  dataHandler: (data: any) => void;
-};
-export type useUseLoginReturn = [useLogin: () => void];
+export type useLoginReturn = [login: () => void];
 
-export default function useLogin(): useUseLoginReturn {
+export default function useLogin(): useLoginReturn {
   const dispatch = useDispatch();
-  const isLogged = useSelector(
-    (state: RootState) => state.authReducer.isLogged
-  );
 
   const login = useCallback(async () => {
-    if (!isLogged) {
-      let user: UserModel | undefined;
+    const headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json");
+    headers.set("Access-Control-Allow-Credentials", "true");
 
-      try {
-        const response = await fetch(envConfig.API_URL + UrlEnum.USER_ME, {
-          method: MethodsEnum.GET,
-          credentials: "include",
-        });
-        user = await response.json();
-      } catch (err) {}
+    try {
+      const response = await fetch(envConfig.API_URL + UrlEnum.USER_ME, {
+        headers,
+        method: MethodsEnum.GET,
+        credentials: "include",
+      });
+      const user = await response.json();
 
       if (user?.id) {
         dispatch(authAction.login(user));
       }
+    } catch (err) {
+      console.log(err);
     }
-  }, [dispatch, isLogged]);
+  }, []);
 
-  return [login] as useUseLoginReturn;
+  return [login] as useLoginReturn;
 }

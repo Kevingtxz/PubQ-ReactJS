@@ -23,13 +23,17 @@ export default function useFindRandomQuestionsBySubtopicId(): useFindQuestionLis
       dataHandler,
     }: findRandomQuestionsBySubtopicIdProps) => {
       let list: QuestionModel[] = [];
-
       let viewList: QuestionView[] | undefined;
+      const headers = new Headers();
+      headers.set("Content-Type", "application/json");
+      headers.set("Accept", "application/json");
+      headers.set("Access-Control-Allow-Credentials", "true");
 
       try {
         const response = await fetch(
           urlUtil.RANDOM_QUESTIONS_BY_SUBTOPIC(subtopicId),
           {
+            headers,
             method: MethodsEnum.GET,
             credentials: "include",
           }

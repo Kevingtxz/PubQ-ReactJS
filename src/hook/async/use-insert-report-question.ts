@@ -9,10 +9,15 @@ export type useInsertReportQuestionReturn = [
 
 export default function useInsertReportQuestion(): useInsertReportQuestionReturn {
   const insertReportQuestion = useCallback((form: QuestionReportForm) => {
+    const headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json");
+    headers.set("Access-Control-Allow-Credentials", "true");
+
     fetch(envConfig.API_URL + UrlEnum.REPORT_QUESTIONS, {
+      headers,
       method: MethodsEnum.POST,
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
   }, []);

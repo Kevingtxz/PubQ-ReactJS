@@ -19,11 +19,16 @@ export default function useFindSubtopicList(): useSelectTopicReturn {
 
       if (list.length === 0) {
         let viewList: SubtopicView[] | undefined;
+        const headers = new Headers();
+        headers.set("Content-Type", "application/json");
+        headers.set("Accept", "application/json");
+        headers.set("Access-Control-Allow-Credentials", "true");
 
         try {
           const response = await fetch(
             envConfig.API_URL + UrlEnum.SUBTOPICS_BY_TOPIC + topicId,
             {
+              headers,
               method: MethodsEnum.GET,
               credentials: "include",
             }

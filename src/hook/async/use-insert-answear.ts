@@ -9,10 +9,15 @@ export type useInsertAnswearReturn = [
 
 export default function useInsertAnswear(): useInsertAnswearReturn {
   const insertAnswear = useCallback((form: QuestionAnswearForm) => {
+    const headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json");
+    headers.set("Access-Control-Allow-Credentials", "true");
+
     fetch(envConfig.API_URL + UrlEnum.QUESTIONS_ANSWEAR_URL, {
+      headers,
       method: MethodsEnum.POST,
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
   }, []);

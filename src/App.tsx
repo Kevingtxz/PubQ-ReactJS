@@ -1,16 +1,16 @@
 import { Suspense, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
-import useLogin from "./hook/async/use-login";
+import Auth from "./component/Auth/Auth";
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
-import Auth from "./component/Auth/Auth";
+import useLogin from "./hook/async/use-login";
 
 export default function App() {
-  const [login] = useLogin();
   const isLogged = useSelector(
     (state: RootState) => state.authReducer.isLogged
   );
+  const [login] = useLogin();
 
   useEffect(() => {
     login();
@@ -25,4 +25,10 @@ export default function App() {
       </Suspense>
     );
   }
+}
+function dispatch(arg0: {
+  payload: import("./model/dto/view/UserView").default;
+  type: "auth/login";
+}) {
+  throw new Error("Function not implemented.");
 }
