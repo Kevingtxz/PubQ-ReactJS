@@ -1,4 +1,4 @@
-export default interface QuestionAnswearModel {
+export default interface QuestionAnswearView {
   id: number;
   answear: number;
   isCorrect: boolean;

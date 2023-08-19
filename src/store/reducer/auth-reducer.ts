@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import UserModel from "../../model/dto/view/UserView";
+import UserView from "../../model/dto/view/UserView";
 
 export interface AuthState {
   isLogged: boolean;
-  user?: UserModel;
+  user?: UserView;
 }
 
 const initialState: AuthState = {
@@ -14,7 +14,7 @@ const slice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
-    login(state: AuthState, { payload }: { payload: UserModel }) {
+    login(state: AuthState, { payload }: { payload: UserView }) {
       state.isLogged = true;
       state.user = payload;
     },
