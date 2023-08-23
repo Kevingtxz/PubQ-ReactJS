@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorHandler from "./component/ErrorHandler/ErrorHandler";
 import TopicPage from "./page/TopicPage/TopicPage";
+import AuthPage from "./page/AuthPage/AuthPage";
+import LoginPage from "./page/LoginPage/LoginPage";
 import QuestionPage from "./page/QuestionPage/QuestionPage";
 
 const topicPageConfig = {
@@ -15,6 +17,23 @@ const questionPageConfig = {
   errorElement: <ErrorHandler />,
 };
 
-const router = createBrowserRouter([topicPageConfig, questionPageConfig]);
+const authPageConfig = {
+  path: "/auth",
+  element: <AuthPage />,
+  errorElement: <ErrorHandler />,
+};
 
-export { topicPageConfig, questionPageConfig, router };
+const loginPageConfig = {
+  path: "/login",
+  element: <LoginPage />,
+  errorElement: <ErrorHandler />,
+};
+
+const router = createBrowserRouter([
+  topicPageConfig,
+  questionPageConfig,
+  authPageConfig,
+  loginPageConfig,
+]);
+
+export { router };

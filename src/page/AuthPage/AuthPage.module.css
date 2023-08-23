@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-size: 2rem;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 20vh;
+  width: 20vh;
+  font-size: 1.4rem;
+  border: none;
+  background: none;
+  border-radius: 2rem;
+}
+
+.google-img {
+  content: url(../../assets/google.svg);
+  max-width: 10vh;
+}
