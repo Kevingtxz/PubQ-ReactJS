@@ -35,13 +35,12 @@ export default class TopicService {
     return list.map((item) => this.makeModel(item));
   }
 
-  static verifyAutocomplete(question: string, list: string[]): string[] {
-    const len = question.length;
+  static verifyAutocomplete(name: string, list: string[]): string[] {
+    const len = name.length;
 
-    return list.filter((item) => {
-      if (item.substring(0, len) === question) {
-        return item;
-      }
-    });
+    return list.filter(
+      (item) =>
+        item.substring(0, len).toLocaleLowerCase() === name.toLocaleLowerCase()
+    );
   }
 }

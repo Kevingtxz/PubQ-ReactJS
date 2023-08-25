@@ -1,6 +1,6 @@
 import { JSX } from "react/jsx-runtime";
 import style from "./TopicInput.module.css";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import TopicService from "../../service/TopicService";
@@ -11,37 +11,46 @@ import useFindTopic from "../../hook/async/use-find-topic";
 
 export default function TopicInput(): JSX.Element {
   const dispatch = useDispatch();
-  const [topicName, setTopicName] = useState("");
-  const [suggestionList, setTopicAutocompleteList] = useState([""]);
+  const topicName = useRef("");
+  const [autocompleteList, setTopicAutocompleteList] = useState([""]);
   const [findTopic] = useFindTopic();
   const topicList = useSelector((state: RootState) => {
     return state.topicReducer.topicList;
   });
 
-  const findTopicFunc = (topicName: string) => {
+  const findTopicFunc = (topic: string) => {
     findTopic({
-      topicName: topicName.trim(),
+      topicName: topic.trim(),
       topicList,
       dataHandler: (data: TopicModel) => {
         dispatch(topicAction.selectTopic(data));
       },
     });
-    setTopicName("");
+    topicName.current = "";
     setTopicAutocompleteList([]);
   };
 
   const handler = async (event: FormEvent) => {
     event.preventDefault();
 
-    if (topicName.length < 1) {
+    if (topicName.current.length < 1) {
       return;
     }
 
-    findTopicFunc(topicName);
+    findTopicFunc(topicName.current);
   };
 
-  const onChangeFunction = (event: ChangeEvent<HTMLInputElement>) => {
-    setTopicName(event.target.value);
+  const inputOutMouse = () => {
+    setTopicAutocompleteList([]);
+  };
+
+  const inputOnClick = () => {
+    const topicListStr = topicList.map((item) => item.name);
+    setTopicAutocompleteList(topicListStr);
+  };
+
+  const inputOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    topicName.current = event.target.value;
     if (event.target.value.length === 0) {
       return setTopicAutocompleteList([]);
     }
@@ -57,10 +66,10 @@ export default function TopicInput(): JSX.Element {
     findTopicFunc(topicNameAutocompleted);
   };
 
-  const suggestionListJsx = (
-    <div className={style["autocomplete-itens"]}>
-      {suggestionList[0] === "" ||
-        suggestionList.map((item, idx) => (
+  const autocompleteListJsx = (
+    <div onMouseLeave={inputOutMouse} className={style["autocomplete-itens"]}>
+      {autocompleteList[0] === "" ||
+        autocompleteList.map((item, idx) => (
           <p
             key={idx}
             onClick={() => autocompleteFunction(item)}
@@ -78,18 +87,19 @@ export default function TopicInput(): JSX.Element {
         <div className={style["label-container"]}>
           <label>
             <input
+              onMouseEnter={inputOnClick}
+              onChange={inputOnChange}
               className={style["topic-input"]}
               type="text"
               placeholder="AZ900: Azure Fundamentals"
-              value={topicName}
-              onChange={onChangeFunction}
+              value={topicName.current}
               maxLength={100}
             />
           </label>
           <button type="submit" className={style["search-icon"]} />
         </div>
       </form>
-      {suggestionListJsx}
+      {autocompleteListJsx}
     </div>
   );
 }
