@@ -2,25 +2,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   width: 100vw;
   height: 100vh;
   font-size: 2rem;
+  background-color: #4285f4;
 }
 
 .google-btn {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 20vh;
-  width: 20vh;
-  font-size: 1.4rem;
-  border: none;
-  background: none;
-  border-radius: 2rem;
+  height: 6vh;
+  width: 30vh;
+  font-size: 2.4rem;
+  border-radius: 0.4rem;
+  border: 1px solid #4285f4;
+  color: #4285f4;
+  background: #fff;
+  box-shadow: 1px 1px 1px 1px #1970fb;
 }
 
 .google-img {
   content: url(../../assets/google.svg);
-  max-width: 10vh;
+  max-width: 4vh;
+  background-color: #fff;
 }
