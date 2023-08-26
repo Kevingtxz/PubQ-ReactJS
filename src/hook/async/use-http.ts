@@ -17,6 +17,7 @@ export enum UrlEnum {
   QUESTIONS_ANSWEAR_URL = "api/v1/questions/answears/",
   REPORT_QUESTIONS = "api/v1/reports/questions/",
   USER_ME = "api/v1/users/me/",
+  STUDY_SERIES_HISTORY = "api/v1/history/series",
 }
 
 export type sendRequestProps = {

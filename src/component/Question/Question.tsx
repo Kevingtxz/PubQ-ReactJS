@@ -13,9 +13,13 @@ import QuestionReportForm from "../../model/dto/form/QuestionReport";
 
 type QuestionProps = {
   question: QuestionModel;
+  addCorrect: () => void;
 };
 
-export default function Question({ question }: QuestionProps): JSX.Element {
+export default function Question({
+  question,
+  addCorrect,
+}: QuestionProps): JSX.Element {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [insertAnswear] = useInsertAnswear();
@@ -46,6 +50,9 @@ export default function Question({ question }: QuestionProps): JSX.Element {
   const sendAnswear = () => {
     if (selectedOption === -1) {
       return;
+    }
+    if (selectedOption === question.correct) {
+      addCorrect();
     }
 
     insertAnswear({

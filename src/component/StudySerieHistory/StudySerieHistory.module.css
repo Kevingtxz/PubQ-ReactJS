@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100vw;
+  height: 65vh;
+  margin: 17.5vh 0;
+}
+
+.back {
+  position: absolute;
+  right: 10vw;
+  top: 5vh;
+  font-size: 3.2rem;
+  padding: 1rem;
+  border: 1px solid #333;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 1px 1px #888;
+}
+
+.back:hover {
+  cursor: pointer;
+  box-shadow: none;
+  border: 1px solid transparent;
+}
+
+.history-item-wrapper {
+  width: 40vw;
+}
+
+.history-item {
+  font-size: 2.4rem;
+}
+
+@media screen and (max-width: 800px) {
+  .history-item-wrapper {
+    width: 85vw;
+  }
+}

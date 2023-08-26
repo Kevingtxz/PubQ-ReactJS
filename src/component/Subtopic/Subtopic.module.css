@@ -1,4 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .subtopic-name {
   font-size: 1.2rem;
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hit-rate {
+  font-size: 1.4rem;
+}
+
+.transparent {
+  color: transparent;
 }

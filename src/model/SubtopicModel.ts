@@ -3,5 +3,5 @@ export default interface SubtopicModel {
   name: string;
   topicId: number;
   totalAnswears: number;
-  correctPercentage?: number;
+  selectedTime?: number;
 }

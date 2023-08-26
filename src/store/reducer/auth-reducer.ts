@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import UserView from "../../model/dto/view/UserView";
+import StudySerieHistoryView from "../../model/dto/view/StudySerieHistoryView";
 
 export interface AuthState {
   isLogged: boolean;
@@ -21,6 +22,12 @@ const slice = createSlice({
     logout(state: AuthState) {
       state.isLogged = false;
       state.user = undefined;
+    },
+    addHistory(
+      state: AuthState,
+      { payload }: { payload: StudySerieHistoryView }
+    ) {
+      state.user?.studySeriesHistory.push(payload);
     },
   },
 });
